@@ -35,8 +35,8 @@ export default function ProductList({ className }: ProductListProps) {
         }
 
         return products?.filter((product) => {
-            return product.title.toLowerCase().indexOf(search) > -1
-                || product.description.toLowerCase().indexOf(search) > -1
+            return product.title.toLowerCase().indexOf(search.toLowerCase()) > -1
+                || product.description.toLowerCase().indexOf(search.toLowerCase()) > -1
         })
     }
     return <>
