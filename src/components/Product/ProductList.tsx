@@ -14,7 +14,7 @@ export default function ProductList({ className }: ProductListProps) {
     const [loading, setLoading] = useState<boolean>(false)
     const [category, setCategory] = useState<null | string>(null)
     const [products, setProducts] = useState<ProductInterface[]>([])
-    const [search, setSearch] = useState<string>()
+    const [search, setSearch] = useState<string>('')
 
     useEffect(() => {
         setLoading(true)
