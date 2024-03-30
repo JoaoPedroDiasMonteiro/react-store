@@ -8,6 +8,8 @@ export default function LoadingIndicator({ show }: LoadingIndicatorProps) {
     const [dots, setDots] = useState<string>('...')
 
     useEffect(() => {
+        if (!show) return
+
         setTimeout(() => {
             switch (dots) {
                 case '...':
@@ -24,7 +26,7 @@ export default function LoadingIndicator({ show }: LoadingIndicatorProps) {
                     break;
             }
         }, 222)
-    }, [dots])
+    }, [dots, show])
 
     if (!show) {
         return <></>
