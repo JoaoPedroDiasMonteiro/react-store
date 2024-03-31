@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ProductInterface } from "../../types/Product";
 import Product from "./Index.tsx";
 import LoadingIndicator from "../UI/LoadingIndicator.tsx";
 import ProductRepository from "../../repository/ProductRepository.ts";
 import CategorySelect from "../Category/CategorySelect.tsx";
 import Input from "../UI/Input.tsx";
+import EmptyStateMessage from "../UI/EmptyStateMessage.tsx";
 
 interface ProductListProps {
     readonly className?: null | string
@@ -29,7 +30,7 @@ export default function ProductList({ className }: ProductListProps) {
         setSearch('')
     }, [products])
 
-    function filteredProducts() {
+    const filteredProducts = useMemo(() => {
         if (!search) {
             return products
         }
@@ -38,7 +39,8 @@ export default function ProductList({ className }: ProductListProps) {
             return product.title.toLowerCase().indexOf(search.toLowerCase()) > -1
                 || product.description.toLowerCase().indexOf(search.toLowerCase()) > -1
         })
-    }
+    }, [search, products])
+
     return <>
         <LoadingIndicator show={loading} />
 
@@ -53,9 +55,13 @@ export default function ProductList({ className }: ProductListProps) {
         </div>
 
         <div className={className + ' mx-auto flex flex-wrap gap-2 mt-4'}>
-            {filteredProducts().map((product) =>
+            {filteredProducts.map((product) =>
                 <Product product={product} key={product.id} />
             )}
         </div>
+
+        {!filteredProducts.length && (
+            <EmptyStateMessage name="products" className="mt-4" />
+        )}
     </>
 }
