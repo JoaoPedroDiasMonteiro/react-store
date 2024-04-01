@@ -49,8 +49,9 @@ export default function ProductList({ className }: ProductListProps) {
             <Input
                 value={search}
                 label="Search"
-                onChange={(event) => setSearch(event.target.value)}
+                model={setSearch}
                 placeholder="Mens Cotton Jacket"
+                type="search"
             />
         </div>
 
