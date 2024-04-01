@@ -12,6 +12,10 @@ export default function Input({model, label, ...rest}: InputProps) {
         model(value)
     }, [value, model])
 
+    function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setValue(event.target.value)
+    }
+
     return (
         <div className="flex gap-2 items-center">
             <label htmlFor={label} className="block text-sm font-medium leading-6 text-gray-900">
@@ -26,7 +30,7 @@ export default function Input({model, label, ...rest}: InputProps) {
                     placeholder="Type here..."
                     value={value}
                     {...rest}
-                    onChange={(event) => {setValue(event.target.value)}}
+                    onChange={handleOnChange}
                 />
             </div>
         </div>
