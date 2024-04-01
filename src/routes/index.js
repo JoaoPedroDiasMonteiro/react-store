@@ -4,6 +4,7 @@ import Home from './../pages/home.tsx'
 import Category from '../pages/category.tsx';
 import Login from '../pages/auth/login.tsx';
 import Register from '../pages/auth/register.tsx';
+import Error from '../pages/error.tsx';
 import App from '../App.tsx';
 
 export default createBrowserRouter([
@@ -18,6 +19,10 @@ export default createBrowserRouter([
             {
                 path: '/categories/:category/:subCategory',
                 element: <Category />
+            },
+            {
+                path: '*',
+                element: <Error />
             }
         ]
     },
