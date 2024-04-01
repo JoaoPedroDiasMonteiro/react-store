@@ -14,7 +14,7 @@ export default createBrowserRouter([
                 element: <Home />
             },
             {
-                path: '/categories/:category',
+                path: '/categories/:category/:subCategory',
                 element: <Category />
             }
         ]
