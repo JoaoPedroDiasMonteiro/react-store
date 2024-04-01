@@ -27,6 +27,4 @@ export default function EmptyStateMessage(props: EmptyStateMessageProps) {
         <div className="text-center text-black text-base font-semibold leading-relaxed pb-1">There’s no {props.name} here</div>
         <p className="text-center text-black text-sm font-normal leading-snug pb-4">Try changing your filters to see {props.name}</p>
     </div>
-
-
 }
