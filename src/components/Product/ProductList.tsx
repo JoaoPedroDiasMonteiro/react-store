@@ -23,12 +23,9 @@ export default function ProductList({ className }: ProductListProps) {
         ProductRepository.products(category).then((products) => {
             setProducts(products)
             setLoading(false)
+            setSearch('')
         })
     }, [category])
-
-    useEffect(() => {
-        setSearch('')
-    }, [products])
 
     const filteredProducts = useMemo(() => {
         if (!search) {
