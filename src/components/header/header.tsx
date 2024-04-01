@@ -2,6 +2,7 @@ import { Transition, Dialog, Tab, Popover } from "@headlessui/react";
 import { XMarkIcon, Bars3Icon, MagnifyingGlassIcon, QuestionMarkCircleIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import LoginNavigation from "./login-navigation.tsx";
 
 const navigation = {
     categories: [
@@ -189,19 +190,7 @@ export default function Header() {
 
         <header className="relative">
             <nav aria-label="Top">
-                {/* Top navigation */}
-                <div className="bg-gray-900">
-                    <div className="mx-auto flex h-10 max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-center space-x-6">
-                            <a href="#" className="text-sm font-medium text-white hover:text-gray-100">
-                                Sign in
-                            </a>
-                            <a href="#" className="text-sm font-medium text-white hover:text-gray-100">
-                                Create an account
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <LoginNavigation />
 
                 {/* Secondary navigation */}
                 <div className="bg-white">
