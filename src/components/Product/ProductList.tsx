@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ProductInterface } from "../../types/Product";
 import Product from "./Index.tsx";
-import LoadingIndicator from "../UI/LoadingIndicator.tsx";
+import LoadingIndicator from "../ui/LoadingIndicator.tsx";
 import ProductRepository from "../../repository/ProductRepository.ts";
 import CategorySelect from "../Category/CategorySelect.tsx";
-import Input from "../UI/Input.tsx";
-import EmptyStateMessage from "../UI/EmptyStateMessage.tsx";
+import Input from "../ui/input.tsx";
+import EmptyStateMessage from "../ui/EmptyStateMessage.tsx";
 
 interface ProductListProps {
     readonly className?: null | string
@@ -46,7 +46,7 @@ export default function ProductList({ className }: ProductListProps) {
             <Input
                 value={search}
                 label="Search"
-                model={setSearch}
+                model={[search, setSearch]}
                 placeholder="Mens Cotton Jacket"
                 type="search"
             />
