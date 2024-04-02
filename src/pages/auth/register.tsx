@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../../components/ui/input.tsx";
+import Input from "../../components/ui/input/input.tsx";
 import { Link } from "react-router-dom";
 
 export default function Register() {
