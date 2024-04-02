@@ -1,16 +1,39 @@
 import React, { useState } from "react";
-import Input from "../../components/ui/input/input.tsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthHero from "../../components/auth/auth-hero.tsx";
 import AuthSocial from "../../components/auth/auth-social.tsx";
-import Logo from "../../components/ui/logo.tsx";
 import Button from "../../components/ui/button.tsx";
 import Checkbox from "../../components/ui/input/checkbox.tsx";
+import Input from "../../components/ui/input/input.tsx";
+import Logo from "../../components/ui/logo.tsx";
+import userRepository from "../../repository/userRepository.ts";
+import { ErrorData } from "../../types/Error.ts";
+import getError from "../../utils/getError.ts";
 
 export default function Login() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
+
+    const [loading, setLoading] = useState<boolean>(false)
+    const [errors, setErrors] = useState<ErrorData>({})
+
+    const navigate = useNavigate();
+
+    async function login(event: React.SyntheticEvent) {
+        event.preventDefault()
+
+        setLoading(true)
+
+        try {
+            await userRepository.login({ email, password })
+            navigate('/')
+        } catch (error) {
+            setErrors(error.response?.data?.errors ?? {})
+        }
+
+        setLoading(false)
+    }
 
     return (
         <div className="flex min-h-full flex-1">
@@ -30,13 +53,14 @@ export default function Login() {
                     </div>
 
                     <div className="mt-10">
-                        <form action="#" method="POST" className="space-y-6">
+                        <form onSubmit={login} className="space-y-6">
                             <Input
                                 label="Email address"
                                 type="email"
                                 autoComplete="email"
                                 required
                                 model={[email, setEmail]}
+                                error={getError(errors, 'email')}
                             />
 
                             <Input
@@ -45,6 +69,7 @@ export default function Login() {
                                 autoComplete="current-password"
                                 required
                                 model={[password, setPassword]}
+                                error={getError(errors, 'password')}
                             />
 
                             <div className="flex items-center justify-between">
@@ -60,7 +85,7 @@ export default function Login() {
                                 </div>
                             </div>
 
-                            <Button>
+                            <Button loading={loading}>
                                 Sign in
                             </Button>
                         </form>
