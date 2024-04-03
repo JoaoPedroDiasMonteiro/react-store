@@ -20,7 +20,7 @@ export default function Register() {
                             Sign up your account
                         </h2>
                         <p className="mt-2 text-sm leading-6 text-gray-500">
-                            Already a member?{' '}
+                            Already have an account?{' '}
                             <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
                                 Login
                             </Link>

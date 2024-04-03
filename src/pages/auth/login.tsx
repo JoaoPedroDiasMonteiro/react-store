@@ -48,7 +48,7 @@ export default function Login() {
                             Sign in to your account
                         </h2>
                         <p className="mt-2 text-sm leading-6 text-gray-500">
-                            Not a member?{' '}
+                            Don't have an account?{' '}
                             <Link to="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
                                 Register now
                             </Link>
