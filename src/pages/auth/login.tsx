@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthHero from "../../components/auth/auth-hero.tsx";
 import AuthSocial from "../../components/auth/auth-social.tsx";
@@ -9,19 +9,21 @@ import Logo from "../../components/ui/logo.tsx";
 import UserRepository from "../../repository/userRepository.ts";
 import { ErrorData } from "../../types/Error.ts";
 import getError from "../../utils/getError.ts";
+import { UserContext } from "../../context/user-context.tsx";
 
 export default function Login() {
+    const { user, setUser } = useContext(UserContext)
+    const navigate = useNavigate();
+
+    if (user) navigate('/')
+   
     const [form, setForm] = useState({
         email: '',
         password: '',
+        rememberMe: false
     })
-
-    const [rememberMe, setRememberMe] = useState<boolean>(false)
-
     const [loading, setLoading] = useState<boolean>(false)
     const [errors, setErrors] = useState<ErrorData>({})
-
-    const navigate = useNavigate();
 
     async function login(event: React.SyntheticEvent) {
         event.preventDefault()
@@ -29,8 +31,10 @@ export default function Login() {
         setLoading(true)
 
         try {
-            await UserRepository.login(form)
-            navigate('/')
+            await UserRepository.login(form).then((data) => {
+                setUser(data)
+                navigate('/')
+            })
         } catch (error) {
             setErrors(error.response?.data?.errors ?? {})
         }
@@ -78,7 +82,7 @@ export default function Login() {
                             <div className="flex items-center justify-between">
                                 <Checkbox
                                     label="Remember me"
-                                    model={[rememberMe, setRememberMe]}
+                                    model={[form, setForm, 'rememberMe']}
                                 />
 
                                 <div className="text-sm leading-6">
