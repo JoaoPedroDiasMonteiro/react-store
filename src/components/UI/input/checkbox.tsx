@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
     readonly label: string,
-    readonly model: [boolean, Function]
+    readonly model: [value: boolean | {}, setValue: Function, key?: string]
 }
 
 export default function Checkbox(props: CheckboxProps) {
     const { label, model, className, onChange, ...rest } = props
 
+    const checked = useMemo(() => {
+        if (typeof model[0] === 'object' && model[2]) {
+            return model[0][model[2]]
+        }
+
+        return model[0]
+    }, [model])
+
     function handleOnChange() {
-        model[1](!model[0])
+        if (model[2] && typeof model[0] === 'object') {
+            const value = model[0][model[2]]
+
+            model[1]({ ...model[0], [model[2]]: !value })
+        } else {
+            model[1](!model[0])
+        }
     }
 
     return (
@@ -19,7 +33,7 @@ export default function Checkbox(props: CheckboxProps) {
                 name={label}
                 className={`${className} h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600`}
                 onChange={handleOnChange}
-                checked={model[0]}
+                checked={checked}
                 {...rest}
                 type="checkbox"
             />

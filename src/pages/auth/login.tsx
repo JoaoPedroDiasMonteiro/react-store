@@ -11,8 +11,11 @@ import { ErrorData } from "../../types/Error.ts";
 import getError from "../../utils/getError.ts";
 
 export default function Login() {
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+    const [form, setForm] = useState({
+        email: '',
+        password: '',
+    })
+
     const [rememberMe, setRememberMe] = useState<boolean>(false)
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -26,7 +29,7 @@ export default function Login() {
         setLoading(true)
 
         try {
-            await userRepository.login({ email, password })
+            await userRepository.login(form)
             navigate('/')
         } catch (error) {
             setErrors(error.response?.data?.errors ?? {})
@@ -59,7 +62,7 @@ export default function Login() {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                model={[email, setEmail]}
+                                model={[form, setForm, 'email']}
                                 error={getError(errors, 'email')}
                             />
 
@@ -68,7 +71,7 @@ export default function Login() {
                                 type="password"
                                 autoComplete="current-password"
                                 required
-                                model={[password, setPassword]}
+                                model={[form, setForm, 'password']}
                                 error={getError(errors, 'password')}
                             />
 

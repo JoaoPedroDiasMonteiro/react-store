@@ -2,16 +2,30 @@ import React, { useMemo } from "react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    readonly label: string,
-    readonly model: [string, Function],
-    readonly error?: null | string
+    readonly label: string;
+    readonly model: [value: string | object, setValue: Function, key?: string];
+    readonly error?: null | string;
 }
 
 export default function Input(props: InputProps) {
     const { label, model, className, onChange, error, ...rest } = props
 
+    const inputValue = useMemo(() => {
+        if (typeof model[0] === 'object' && model[2]) {
+            return model[0][model[2]]
+        }
+
+        return model[0]
+    }, [model])
+
     function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
-        model[1](event.target.value)
+        const value = event.target.value
+
+        if (model[2] && typeof model[0] === 'object') {
+            model[1]({ ...model[0], [model[2]]: value })
+        } else {
+            model[1](value)
+        }
     }
 
     const inputClasses = useMemo(() => {
@@ -37,7 +51,7 @@ export default function Input(props: InputProps) {
                     name={label}
                     className={`${className} ${inputClasses}`}
                     onChange={handleOnChange}
-                    value={model[0]}
+                    value={inputValue}
                     {...rest}
                 />
                 {error && (
