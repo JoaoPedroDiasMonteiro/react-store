@@ -1,13 +1,17 @@
 import api from "../services/api.ts"
+import { User } from "../types/User"
 
-const userRepository = {
-    login: async (credentials: {email: string, password: string}) => {
+const UserRepository = {
+    login: async (credentials: {email: string, password: string}): Promise<User> => {
         await api.csrf()
 
         await api.post('/login', credentials)
 
-        await api.get('/api/user')
+        return (await api.get('/api/user')).data
+    },
+    user: async(): Promise<User> => {
+        return (await api.get('/api/user')).data
     }
 }
 
-export default userRepository
+export default UserRepository

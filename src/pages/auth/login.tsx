@@ -6,7 +6,7 @@ import Button from "../../components/ui/button.tsx";
 import Checkbox from "../../components/ui/input/checkbox.tsx";
 import Input from "../../components/ui/input/input.tsx";
 import Logo from "../../components/ui/logo.tsx";
-import userRepository from "../../repository/userRepository.ts";
+import UserRepository from "../../repository/userRepository.ts";
 import { ErrorData } from "../../types/Error.ts";
 import getError from "../../utils/getError.ts";
 
@@ -29,7 +29,7 @@ export default function Login() {
         setLoading(true)
 
         try {
-            await userRepository.login(form)
+            await UserRepository.login(form)
             navigate('/')
         } catch (error) {
             setErrors(error.response?.data?.errors ?? {})
