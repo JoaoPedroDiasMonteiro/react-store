@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import ProductRepository from "../../../repository/productRepository.ts";
 import { Pagination } from "../../../types/Pagination";
 import { Product } from "../../../types/Product";
-import ProductCardSkeleton from "../../product/product-card-skeleton.tsx";
-import ProductCard from "../../product/product-card.tsx";
+import ProductCardSkeleton from "../../../components/product/product-card-skeleton.tsx";
+import ProductCard from "../../../components/product/product-card.tsx";
 
 export default function TrendingProducts() {
     const [products, setProducts] = useState<Pagination<Product>>()
