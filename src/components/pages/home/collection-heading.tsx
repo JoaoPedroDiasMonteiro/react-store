@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import CategoryRepository from "../../repository/categoryRepository.ts";
-import { Category } from "../../types/Category";
-import { Pagination } from "../../types/Pagination";
-import CategoryHeading from "../category/category-heading.tsx";
-import CategoryHeadingSkeleton from "../category/category-heading-skeleton.tsx";
+import CategoryRepository from "../../../repository/categoryRepository.ts";
+import { Category } from "../../../types/Category";
+import { Pagination } from "../../../types/Pagination";
+import CategoryHeading from "../../category/category-heading.tsx";
+import CategoryHeadingSkeleton from "../../category/category-heading-skeleton.tsx";
 
 export default function CollectionHeading() {
     const [categories, setCategories] = useState<Pagination<Category>>()
