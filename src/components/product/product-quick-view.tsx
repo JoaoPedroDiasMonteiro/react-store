@@ -1,9 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { Product } from '../../types/Product'
 import classNames from '../../utils/classNames.ts'
+import { CartContext } from '../../context/cart-context.tsx'
 
 interface ProductQuickViewProps {
     readonly product: null | Product
@@ -14,7 +15,14 @@ interface ProductQuickViewProps {
 }
 
 export default function ProductQuickView({ product, handle }: ProductQuickViewProps) {
+    const { add } = useContext(CartContext)
+
     const { open, setOpen } = handle
+
+    function addToCart() {
+        add(product)
+        setOpen(false)
+    }
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -105,7 +113,8 @@ export default function ProductQuickView({ product, handle }: ProductQuickViewPr
                                                     <form>
                                                         <div className="mt-6">
                                                             <button
-                                                                type="submit"
+                                                                onClick={addToCart}
+                                                                type="button"
                                                                 className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                                                             >
                                                                 Add to bag
