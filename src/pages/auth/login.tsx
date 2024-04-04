@@ -1,22 +1,22 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthHero from "../../components/auth/auth-hero.tsx";
-import AuthSocial from "../../components/auth/auth-social.tsx";
 import Button from "../../components/ui/button.tsx";
 import Checkbox from "../../components/ui/input/checkbox.tsx";
 import Input from "../../components/ui/input/input.tsx";
 import Logo from "../../components/ui/logo.tsx";
+import { UserContext } from "../../context/user-context.tsx";
 import UserRepository from "../../repository/userRepository.ts";
 import { ErrorData } from "../../types/Error.ts";
 import getError from "../../utils/getError.ts";
-import { UserContext } from "../../context/user-context.tsx";
+import AuthHero from "./components/auth-hero.tsx";
+import AuthSocial from "./components/auth-social.tsx";
 
 export default function Login() {
     const { user, setUser } = useContext(UserContext)
     const navigate = useNavigate();
 
     if (user) navigate('/')
-   
+
     const [form, setForm] = useState({
         email: '',
         password: '',
