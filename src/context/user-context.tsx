@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import UserRepository from "../repository/userRepository.ts";
 import { User } from "../types/User";
 
@@ -11,18 +11,17 @@ export function UserProvider({ children }) {
     const [user, setUser] = useState<null | User>(null)
 
     useEffect(() => {
-        fetchUser()
+        UserRepository.user()
+            .then((data) => setUser(data))
+            .catch(() => { })
     }, [])
 
-    async function fetchUser() {
-        try {
-            const data = await UserRepository.user()
-            setUser(data)
-        } catch (error) { }
-    }
+    const context = useMemo(() => {
+        return { user, setUser }
+    }, [user])
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={context}>
             {children}
         </UserContext.Provider>
     )
