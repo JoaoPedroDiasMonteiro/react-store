@@ -13,7 +13,7 @@ export default function CollectionHeading() {
         CategoryRepository.index({ limit: 3 }).then((categories) => {
             setCategories(categories)
             setLoading(false)
-        })
+        }).catch(() => { })
     }, [])
 
     return (
