@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProductQuickViewContext } from "../../context/product-quick-view-context.tsx";
 import { Product } from "../../types/Product";
 
 interface ProductCardProps {
@@ -6,6 +7,12 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+    const { setProduct } = useContext(ProductQuickViewContext)
+
+    function handleClick() {
+        setProduct(product)
+    }
+
     return (
         <div className="group relative">
             <div className="h-56 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-72 xl:h-80">
@@ -16,10 +23,10 @@ export default function ProductCard({ product }: ProductCardProps) {
                 />
             </div>
             <h3 className="mt-4 text-sm text-gray-700">
-                <a href="#">
+                <button onClick={handleClick}>
                     <span className="absolute inset-0" />
                     {product.name}
-                </a>
+                </button>
             </h3>
             <p className="mt-1 text-sm text-gray-500">
                 {product.category?.name}
