@@ -2,7 +2,7 @@ import axios, { AxiosError, type AxiosRequestConfig } from "axios"
 
 const baseURL = 'http://localhost:8000'
 
-const axiosInstance =  axios.create({
+const axiosInstance = axios.create({
     baseURL,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -36,7 +36,7 @@ function request(method: 'get' | 'post' | 'patch' | 'put' | 'delete', ...params:
 
 function onError(error: AxiosError) {
     addErrors(error)
-    redirectIfSessionExpired(error)
+    // redirectIfSessionExpired(error)
     notifyError(error)
 }
 
