@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import CartModal from "./cart-modal.tsx"
+import CartModal from "./modal/cart-modal.tsx"
 import CartToggle from "./cart-toggle.tsx"
 
 export default function Cart() {
