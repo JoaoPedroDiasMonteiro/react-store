@@ -6,14 +6,14 @@ const INITIAL_VALUE: {
     items: CartItem[];
     quantityItems: number;
     totalValue: number;
-    add: (product: Product, quantity: number) => void;
+    add: (product: Product, quantity?: number) => void;
     remove: (productId: number) => void;
     update: (productId: number, change: number) => void;
 } = {
     items: [],
     quantityItems: 0,
     totalValue: 0,
-    add: function (product: Product, quantity: number): void { },
+    add: function (product: Product, quantity: number = 1): void { },
     remove: function (productId: number): void { },
     update: function (productId: number, change: number): void { }
 };
