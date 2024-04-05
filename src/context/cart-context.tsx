@@ -21,7 +21,7 @@ const INITIAL_VALUE: {
 export const CartContext = createContext(INITIAL_VALUE)
 
 export function CartProvider({ children }) {
-    const [items, setItems] = useState<CartItem[]>([])
+    const [items, setItems] = useState<CartItem[]>(getCartFromLocalStorage())
     const [quantityItems, setQuantityItems] = useState<number>(0)
     const [totalValue, setTotalValue] = useState<number>(0)
 
@@ -58,6 +58,7 @@ export function CartProvider({ children }) {
 
         setQuantityItems(items.length)
         setTotalValue(calculateTotalValue)
+        storeCartOnLocalStorage(items)
     }, [items])
 
     return (
@@ -65,6 +66,20 @@ export function CartProvider({ children }) {
             {children}
         </CartContext.Provider>
     )
+}
+
+function getCartFromLocalStorage(): CartItem[] {
+    const items = localStorage.getItem('cart')
+
+    if (items) {
+        return JSON.parse(items)
+    }
+
+    return []
+}
+
+function storeCartOnLocalStorage(items: CartItem[]) {
+    localStorage.setItem('cart', JSON.stringify(items))
 }
 
 function handleAddToCart(items: CartItem[], product: Product, quantity: number): CartItem[] {
