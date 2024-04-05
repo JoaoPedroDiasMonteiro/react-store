@@ -1,65 +1,85 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useEffect, useMemo, useReducer } from "react";
 import { CartItem } from "../types/CartItem";
 import { Product } from "../types/Product";
 
-const INITIAL_VALUE: {
+interface CartState {
     items: CartItem[];
     quantityItems: number;
     totalValue: number;
     add: (product: Product, quantity?: number) => void;
     remove: (productId: number) => void;
     update: (productId: number, change: number) => void;
-} = {
+}
+
+const INITIAL_VALUE: CartState = {
     items: [],
     quantityItems: 0,
     totalValue: 0,
-    add: function (product: Product, quantity: number = 1): void { },
-    remove: function (productId: number): void { },
-    update: function (productId: number, change: number): void { }
+    add: () => null,
+    remove: () => null,
+    update: () => null,
 };
 
-export const CartContext = createContext(INITIAL_VALUE)
+export const CART_ACTION_TYPES = {
+    ADD_TO_CART: 'ADD_TO_CART',
+    REMOVE_FROM_CART: 'REMOVE_FROM_CART',
+    UPDATE_QUANTITY: 'UPDATE_QUANTITY',
+    COMPUTE_ITEM_CHANGE: 'COMPUTE_ITEM_CHANGE'
+}
+
+export const CartContext = createContext<CartState>(INITIAL_VALUE)
+
+function reducer(state: CartState, action: any) {
+    switch (action.type) {
+        case CART_ACTION_TYPES.ADD_TO_CART: {
+            return handleAddToCart(state, action.product, action.quantity)
+        }
+        case CART_ACTION_TYPES.UPDATE_QUANTITY: {
+            return handleUpdateQuantity(state, action.productId, action.change)
+        }
+        case CART_ACTION_TYPES.REMOVE_FROM_CART: {
+            return handleRemoveFromCart(state, action.productId)
+        }
+        case CART_ACTION_TYPES.COMPUTE_ITEM_CHANGE: {
+            return computeItemChange(state)
+        }
+    }
+
+    throw Error('Unknown action: ' + action.type);
+}
 
 export function CartProvider({ children }) {
-    const [items, setItems] = useState<CartItem[]>(getCartFromLocalStorage())
-    const [quantityItems, setQuantityItems] = useState<number>(0)
-    const [totalValue, setTotalValue] = useState<number>(0)
+    const [state, dispatch] = useReducer(reducer, INITIAL_VALUE, (state) => {
+        const items = getCartFromLocalStorage()
+
+        return computeItemChange({ ...state, items })
+    })
 
     const context = useMemo(() => {
-        function addToCart(product: Product, quantity: number = 1) {
-            setItems(handleAddToCart(items, product, quantity))
-        };
-
-        function removeFromCart(productId: number): void {
-            setItems(handleRemoveFromCart(items, productId))
-        };
-
-        function updateQuantity(productId: number, change: number): void {
-            setItems(handleUpdateQuantity(items, productId, change));
-        };
-
         return {
-            items,
-            quantityItems,
-            totalValue,
+            ...state,
             add: addToCart,
             remove: removeFromCart,
             update: updateQuantity
         }
-    }, [items, quantityItems, totalValue])
+    }, [state])
 
     useEffect(() => {
-        function calculateTotalValue() {
-            const totalValue = items.reduce((total, item) => {
-                return total + (item.price * item.quantity);
-            }, 0);
-            return totalValue;
-        };
+        storeCartOnLocalStorage(state.items)
+        dispatch({ type: CART_ACTION_TYPES.COMPUTE_ITEM_CHANGE })
+    }, [state.items])
 
-        setQuantityItems(items.length)
-        setTotalValue(calculateTotalValue)
-        storeCartOnLocalStorage(items)
-    }, [items])
+    function addToCart(product: Product, quantity: number = 1) {
+        dispatch({ type: CART_ACTION_TYPES.ADD_TO_CART, product, quantity })
+    };
+
+    function removeFromCart(productId: number): void {
+        dispatch({ type: CART_ACTION_TYPES.REMOVE_FROM_CART, productId })
+    };
+
+    function updateQuantity(productId: number, change: number): void {
+        dispatch({ type: CART_ACTION_TYPES.UPDATE_QUANTITY, productId, change })
+    };
 
     return (
         <CartContext.Provider value={context}>
@@ -82,53 +102,82 @@ function storeCartOnLocalStorage(items: CartItem[]) {
     localStorage.setItem('cart', JSON.stringify(items))
 }
 
-function handleAddToCart(items: CartItem[], product: Product, quantity: number): CartItem[] {
+function handleAddToCart(state: CartState, product: Product, quantity: number): CartState {
+    const items = structuredClone(state.items)
+
+    let newItems: CartItem[] = []
+
     const existingItemIndex = items.findIndex(item => item.id === product.id);
 
     if (existingItemIndex !== -1) {
-        const updatedItems = [...items];
-        updatedItems[existingItemIndex].quantity += quantity;
-        updatedItems[existingItemIndex].totalPrice = product.price * updatedItems[existingItemIndex].quantity;
+        newItems = [...items];
+        newItems[existingItemIndex].quantity += quantity;
+        newItems[existingItemIndex].totalPrice = product.price * newItems[existingItemIndex].quantity;
+    } else {
+        const newItem = {
+            ...product,
+            quantity,
+            totalPrice: product.price * quantity
+        };
 
-        return updatedItems
+        newItems = [...items, newItem]
     }
 
-    const newItem = {
-        ...product,
-        quantity,
-        totalPrice: product.price * quantity
-    };
-
-    return [...items, newItem]
+    return {
+        ...state,
+        items: newItems,
+    }
 }
 
-function handleRemoveFromCart(items: CartItem[], productId: number): CartItem[] {
-    const itemIndex = items.findIndex(item => item.id === productId);
+function handleRemoveFromCart(state: CartState, productId: number): CartState {
+    const itemIndex = state.items.findIndex(item => item.id === productId);
 
     if (itemIndex === -1) {
-        return items
+        return state
     }
 
-    const updatedItems = [...items];
+    const updatedItems = [...state.items];
     updatedItems.splice(itemIndex, 1);
 
-    return updatedItems
+    return {
+        ...state,
+        items: updatedItems,
+    }
 };
 
-function handleUpdateQuantity(items: CartItem[], productId: number, change: number): CartItem[] {
-    const itemIndex = items.findIndex(item => item.id === productId);
+function handleUpdateQuantity(state: CartState, productId: number, change: number): CartState {
+    const itemIndex = state.items.findIndex(item => item.id === productId);
 
-    if (itemIndex === -1) return items
+    if (itemIndex === -1) return state
 
-    const updatedItems = structuredClone([...items]);
+    const updatedItems = structuredClone([...state.items]);
     const product = updatedItems[itemIndex]
 
     updatedItems[itemIndex].quantity += change;
     updatedItems[itemIndex].totalPrice = product.price * product.quantity;
 
     if (updatedItems[itemIndex].quantity <= 0) {
-        return items
+        return state
     };
 
-    return updatedItems
+    return {
+        ...state,
+        items: updatedItems,
+    }
 };
+
+function calculateTotalValue(items: CartItem[]) {
+    const totalValue = items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+
+    return totalValue;
+};
+
+function computeItemChange(state: CartState): CartState {
+    return {
+        ...state,
+        quantityItems: state.items.length,
+        totalValue: calculateTotalValue(state.items)
+    }
+}
