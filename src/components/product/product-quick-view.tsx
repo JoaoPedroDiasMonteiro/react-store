@@ -5,6 +5,7 @@ import React, { Fragment, useContext } from 'react'
 import { Product } from '../../types/Product'
 import classNames from '../../utils/classNames.ts'
 import { CartContext } from '../../context/cart-context.tsx'
+import { useNotificationStoreActions } from '../../store/notification/notificationStore.ts'
 
 interface ProductQuickViewProps {
     readonly product: null | Product
@@ -15,13 +16,28 @@ interface ProductQuickViewProps {
 }
 
 export default function ProductQuickView({ product, handle }: ProductQuickViewProps) {
-    const { add } = useContext(CartContext)
+    const { add: addProduct } = useContext(CartContext)
+    const { addNotification } = useNotificationStoreActions()
 
     const { open, setOpen } = handle
 
     function addToCart() {
-        add(product)
+        if (!product) {
+            return
+        }
+
+        notifyProductAdded(product)
+        addProduct(product)
         setOpen(false)
+    }
+
+    function notifyProductAdded(product: Product) {
+        addNotification({
+            title: 'Product added successfully',
+            body: `The product ${product.name} has been added successfully!`,
+            type: 'image',
+            imageUrl: product.image,
+        })
     }
 
     return (
