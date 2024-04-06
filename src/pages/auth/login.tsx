@@ -5,7 +5,7 @@ import Checkbox from "../../components/ui/input/checkbox.tsx";
 import Input from "../../components/ui/input/input.tsx";
 import Logo from "../../components/ui/logo.tsx";
 import UserRepository from "../../repository/userRepository.ts";
-import { useUserStore } from "../../store/user/userStore.ts";
+import { useUserStore, useUserStoreActions } from "../../store/user/userStore.ts";
 import { ErrorData } from "../../types/Error.ts";
 import getError from "../../utils/getError.ts";
 import AuthHero from "./components/auth-hero.tsx";
@@ -13,7 +13,8 @@ import AuthSocial from "./components/auth-social.tsx";
 import { useNotificationStoreActions } from "../../store/notification/notificationStore.ts";
 
 export default function Login() {
-    const { user, setUser } = useUserStore()
+    const { user } = useUserStore()
+    const { setUser } = useUserStoreActions()
     const { addNotification } = useNotificationStoreActions()
     const navigate = useNavigate();
 
