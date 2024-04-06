@@ -24,7 +24,7 @@ export default function NotificationItemIcon({ notification }: NotificationItemI
             )}
             {notification.type === 'image' && notification.imageUrl && (
                 <img
-                    className="h-10 w-10 rounded-full"
+                    className="h-10 w-10 rounded-full object-cover"
                     src={notification.imageUrl}
                     alt="notification"
                 />
