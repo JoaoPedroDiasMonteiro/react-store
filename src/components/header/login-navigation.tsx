@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../context/user-context.tsx";
+import { useUserStore } from "../../store/user/userStore.ts";
 
 export default function LoginNavigation() {
-    const { user } = useContext(UserContext)
+    const { user } = useUserStore()
 
     return (
         <div className="bg-gray-900">
