@@ -10,9 +10,11 @@ import { ErrorData } from "../../types/Error.ts";
 import getError from "../../utils/getError.ts";
 import AuthHero from "./components/auth-hero.tsx";
 import AuthSocial from "./components/auth-social.tsx";
+import { useNotificationStoreActions } from "../../store/notification/notificationStore.ts";
 
 export default function Login() {
     const { user, setUser } = useUserStore()
+    const { addNotification } = useNotificationStoreActions()
     const navigate = useNavigate();
 
     if (user) navigate('/')
@@ -33,6 +35,11 @@ export default function Login() {
         try {
             await UserRepository.login(form).then((data) => {
                 setUser(data)
+                addNotification({
+                    title: 'Welcome ' + data.name,
+                    body: 'You\'ve been logged in.',
+                    type: 'success'
+                })
                 navigate('/')
             })
         } catch (error) {

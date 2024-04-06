@@ -15,9 +15,9 @@ const INITIAL_VALUE: CartState = {
     items: [],
     quantityItems: 0,
     totalValue: 0,
-    add: () => null,
-    remove: () => null,
-    update: () => null,
+    add: () => null, // TODO: Remove this functions from reducer. Create a new type for the reducer. Maybe we can organize this logic in multiple files.
+    remove: () => null, // TODO: Remove this functions from reducer. Create a new type for the reducer. Maybe we can organize this logic in multiple files.
+    update: () => null, // TODO: Remove this functions from reducer. Create a new type for the reducer. Maybe we can organize this logic in multiple files.
 };
 
 export const CART_ACTION_TYPES = {

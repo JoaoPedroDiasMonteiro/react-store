@@ -8,6 +8,7 @@ import { ProductQuickViewProvider } from "../context/product-quick-view-context.
 import UserRepository from "../repository/userRepository.ts"
 import USER_ACTIONS from "../store/user/userActionTypes.ts"
 import { createAction } from "../utils/reducer/createAction.ts"
+import NotificationContainer from "../components/Notification/NotificationContainer.tsx"
 
 export default function App() {
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ export default function App() {
 
     return <>
         <CartProvider>
+            <NotificationContainer />
             <Header />
             <ProductQuickViewProvider>
                 <Outlet />
