@@ -51,7 +51,7 @@ function addErrors(error: AxiosError) {
 
 function clearErrors(path: undefined | string) {
     if (path) {
-        console.log('clear errors')
+        // console.log('clear errors')
     }
 }
 
