@@ -1,14 +1,26 @@
-import React, { useContext } from "react"
-import { CartContext } from "../../../context/cart-context.tsx"
+import React from "react"
+import { useCartStore, useCartStoreActions } from "../../../store/cart/cartStore.ts"
 import { CartItem } from "../../../types/CartItem"
 import moneyFormat from "../../../utils/moneyFormat.ts"
 
 interface CartModalItemProps {
-    product: CartItem
+    readonly product: CartItem
 }
 
 export default function CartModalItem({ product }: CartModalItemProps) {
-    const { update, remove } = useContext(CartContext)
+    const { updateItemQuantity, removeFromCart } = useCartStoreActions()
+
+    function handleRemove() {
+        removeFromCart(product.id)
+    }
+
+    function handleIncrease() {
+        updateItemQuantity(product.id, 1)
+    }
+
+    function handleDecrease() {
+        updateItemQuantity(product.id, -1)
+    }
 
     return (
         <li className="flex py-6">
@@ -40,13 +52,13 @@ export default function CartModalItem({ product }: CartModalItemProps) {
                 <div className="flex flex-1 items-end justify-between text-sm">
                     <div className='flex items-center gap-2'>
                         <button className='h-5 w-5 text-white flex items-center justify-center bg-slate-400 rounded-full'
-                            onClick={() => update(product.id, -1)}
+                            onClick={handleDecrease}
                         >
                             <span className='h-[22px]'>&#8722;</span>
                         </button>
                         <p className="text-gray-500">Qty: {product.quantity}</p>
                         <button className='h-5 w-5 text-white flex items-center justify-center bg-slate-400 rounded-full'
-                            onClick={() => update(product.id, 1)}
+                            onClick={handleIncrease}
                         >
                             <span className='h-[22px]'>&#43;</span>
                         </button>
@@ -54,7 +66,7 @@ export default function CartModalItem({ product }: CartModalItemProps) {
                     <div className="flex">
                         <button
                             type="button"
-                            onClick={() => { remove(product.id) }}
+                            onClick={handleRemove}
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
                             Remove

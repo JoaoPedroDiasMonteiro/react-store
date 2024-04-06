@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
-import React, { Fragment, useContext } from 'react';
-import { CartContext } from '../../../context/cart-context.tsx';
+import React, { Fragment } from 'react';
+import { useCartStore } from '../../../store/cart/cartStore.ts';
 import CartModalFooter from './cart-modal-footer.tsx';
 import CartModalHeader from './cart-modal-header.tsx';
 import CartModalItem from './cart-modal-item.tsx';
@@ -15,7 +15,7 @@ interface CartModalProps {
 export default function CartModal({ handle }: CartModalProps) {
     const { open, setOpen } = handle
 
-    const { items: products, totalValue } = useContext(CartContext)
+    const { items: products, totalValue } = useCartStore()
 
     return (
         <Transition.Root show={open} as={Fragment}>

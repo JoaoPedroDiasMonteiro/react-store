@@ -1,9 +1,9 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import React, { useContext } from "react";
-import { CartContext } from "../../context/cart-context.tsx";
+import React from "react";
+import { useCartStore } from "../../store/cart/cartStore.ts";
 
 export default function CartToggle(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-    const { quantityItems } = useContext(CartContext)
+    const { quantityItems } = useCartStore()
 
     return (
         <div className="ml-4 flow-root lg:ml-8">
