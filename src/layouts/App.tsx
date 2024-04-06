@@ -14,8 +14,8 @@ export default function App() {
 
     useEffect(() => {
         UserRepository.user()
-            .then((response) => {
-                dispatch(createAction(USER_ACTIONS.SET_USER, { response }))
+            .then((user) => {
+                dispatch(createAction(USER_ACTIONS.SET_USER, { user }))
             })
             .catch(() => { })
     }, [])
