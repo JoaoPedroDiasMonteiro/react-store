@@ -2,7 +2,7 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { Bars3Icon, MagnifyingGlassIcon, QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import Cart from "../cart/cart.tsx";
+import Cart from "../Cart/Cart.tsx";
 import LoginNavigation from "./login-navigation.tsx";
 
 const navigation = {

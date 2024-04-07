@@ -1,5 +1,5 @@
 import React from "react"
-import { useCartStore, useCartStoreActions } from "../../../store/cart/cartStore.ts"
+import { useCartStoreActions } from "../../../store/cart/cartStore.ts"
 import { CartItem } from "../../../types/CartItem"
 import moneyFormat from "../../../utils/moneyFormat.ts"
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import CartModal from "./modal/cart-modal.tsx"
-import CartToggle from "./cart-toggle.tsx"
+import CartModal from "./Modal/CartModal.tsx"
+import CartToggle from "./CartToggle.tsx"
 
 export default function Cart() {
     const [open, setOpen] = useState(false)
