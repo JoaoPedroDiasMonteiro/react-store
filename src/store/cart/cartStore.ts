@@ -1,8 +1,6 @@
-import { Product } from '../../types/Product';
-import { createAction } from '../../utils/reducer/createAction.ts';
-import { CART_ACTION_TYPES } from './cartActionTypes.ts';
-import { CartState } from './cartReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { Product } from '../../types/Product';
+import { CartState, addToCart, removeFromCart, updateQuantity } from './cartReducer.ts';
 
 export function useCartStore() {
     return {
@@ -15,13 +13,13 @@ export function useCartStoreActions() {
 
     return {
         addToCart: (product: Product, quantity: number = 1) => {
-            dispatch(createAction(CART_ACTION_TYPES.ADD_TO_CART, { product, quantity }))
+            dispatch(addToCart({ product, quantity }))
         },
         removeFromCart: (productId: number) => {
-            dispatch(createAction(CART_ACTION_TYPES.REMOVE_FROM_CART, { productId }))
+            dispatch(removeFromCart({ productId }))
         },
         updateItemQuantity: (productId: number, change: number) => {
-            dispatch(createAction(CART_ACTION_TYPES.UPDATE_QUANTITY, { productId, change }))
+            dispatch(updateQuantity({ productId, change }))
         }
     }
 }

@@ -1,6 +1,6 @@
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { CartItem } from "../../types/CartItem";
-import { CART_ACTION_TYPES } from "./cartActionTypes.ts";
-import { computeItemChange, getCartFromLocalStorage, handleAddToCart, handleRemoveFromCart, handleUpdateQuantity } from "./cartActions.ts";
+import { Product } from "../../types/Product";
 
 export interface CartState {
     items: CartItem[];
@@ -8,32 +8,93 @@ export interface CartState {
     totalValue: number;
 }
 
+const initialValue = getInitialValue()
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState: initialValue,
+    reducers: {
+        addToCart(state, action: PayloadAction<{ product: Product, quantity: number }>) {
+            const { product, quantity } = action.payload
+
+            const existingItemIndex = state.items.findIndex(item => item.id === product.id);
+
+            if (existingItemIndex !== -1) {
+                state.items[existingItemIndex].quantity += quantity;
+                state.items[existingItemIndex].totalPrice = product.price * state.items[existingItemIndex].quantity;
+            } else {
+                state.items.push({ ...product, quantity, totalPrice: product.price * quantity })
+            }
+
+            storeCartOnLocalStorage(state.items)
+            state.quantityItems = state.items.length
+            state.totalValue = calculateTotalValue(state.items)
+        },
+        updateQuantity(state, action: PayloadAction<{ productId: number, change: number }>) {
+            const { productId, change } = action.payload
+
+            const itemIndex = state.items.findIndex(item => item.id === productId);
+
+            if (itemIndex === -1) return
+
+
+            const product = state.items[itemIndex]
+            const newQuantity = product.quantity + change
+
+            if (newQuantity <= 0) return
+
+            storeCartOnLocalStorage(state.items)
+            product.quantity += change
+            product.totalPrice = product.price * product.quantity
+            state.totalValue = calculateTotalValue(state.items)
+        },
+        removeFromCart(state, action: PayloadAction<{ productId: number }>) {
+            const itemIndex = state.items.findIndex(item => item.id === action.payload.productId);
+
+            if (itemIndex === -1) return
+
+            state.items.splice(itemIndex, 1);
+
+            storeCartOnLocalStorage(state.items)
+
+            state.quantityItems = state.items.length
+            state.totalValue = calculateTotalValue(state.items)
+        }
+    }
+})
+
+export const { addToCart, updateQuantity, removeFromCart } = cartSlice.actions
+
+export default cartSlice.reducer
+
 function getInitialValue(): CartState {
     const items = getCartFromLocalStorage()
 
-    return computeItemChange({
+    return {
         items,
-        quantityItems: 0,
-        totalValue: 0
-    })
+        quantityItems: items.length,
+        totalValue: calculateTotalValue(items)
+    }
 }
 
-const initialValue = getInitialValue()
+function getCartFromLocalStorage(): CartItem[] {
+    const items = localStorage.getItem('cart')
 
-export function cartReducer(state: CartState = initialValue, action: any) {
-    const { type, payload } = action
-
-    switch (type) {
-        case CART_ACTION_TYPES.ADD_TO_CART: {
-            return handleAddToCart(state, payload.product, payload.quantity)
-        }
-        case CART_ACTION_TYPES.UPDATE_QUANTITY: {
-            return handleUpdateQuantity(state, payload.productId, payload.change)
-        }
-        case CART_ACTION_TYPES.REMOVE_FROM_CART: {
-            return handleRemoveFromCart(state, payload.productId)
-        }
+    if (items) {
+        return JSON.parse(items)
     }
 
-    return state
+    return []
+}
+
+function calculateTotalValue(items: CartItem[]) {
+    const totalValue = items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+
+    return totalValue;
+};
+
+function storeCartOnLocalStorage(items: CartItem[]) {
+    localStorage.setItem('cart', JSON.stringify(items))
 }
