@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Notification as BaseNotification } from "../../types/Notification";
-import { createAction } from "../../utils/reducer/createAction.ts";
-import NOTIFICATION_TYPES from "./notificationActionTypes.ts";
-import { NotificationState } from './notificationReducer';
+import { NotificationState, addNotification, removeNotification } from './notificationReducer.ts';
 
 interface Notification extends Omit<BaseNotification, 'id' | 'duration'> {
     duration?: number
@@ -19,10 +17,10 @@ export function useNotificationStoreActions() {
 
     return {
         addNotification: (notification: Notification) => {
-            dispatch(createAction(NOTIFICATION_TYPES.ADD_NOTIFICATION, { notification }))
+            dispatch(addNotification(notification))
         },
         removeNotification: (notificationId: number) => {
-            dispatch(createAction(NOTIFICATION_TYPES.REMOVE_NOTIFICATION, { notificationId }))
+            dispatch(removeNotification(notificationId))
         }
     }
 }
