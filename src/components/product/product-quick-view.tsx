@@ -25,8 +25,8 @@ export default function ProductQuickView({ product, handle }: ProductQuickViewPr
             return
         }
 
-        notifyProductAdded(product)
         addToCart(product)
+        notifyProductAdded(product)
         setOpen(false)
     }
 
