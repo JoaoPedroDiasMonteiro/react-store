@@ -1,6 +1,5 @@
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { User } from './../../types/User.d';
-import USER_ACTIONS from './userActionTypes.ts';
-import { setUser } from './userActions.ts';
 
 export interface UserState {
     user: User | null
@@ -10,14 +9,16 @@ const INITIAL_STATE: UserState = {
     user: null,
 }
 
-export function userReducer(state = INITIAL_STATE, action): UserState {
-    const { type, payload } = action;
-
-    switch (type) {
-        case USER_ACTIONS.SET_USER: {
-            return setUser(payload.user)
+const userSlice = createSlice({
+    name: 'user',
+    initialState: INITIAL_STATE,
+    reducers: {
+        setUser(state, action: PayloadAction<User | null>) {
+            state.user = action.payload
         }
     }
+})
 
-    return state
-}
+export const { setUser } = userSlice.actions
+
+export default userSlice.reducer

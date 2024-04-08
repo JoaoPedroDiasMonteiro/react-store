@@ -1,7 +1,5 @@
 import { User } from '../../types/User';
-import { createAction } from '../../utils/reducer/createAction.ts';
-import USER_ACTIONS from './userActionTypes.ts';
-import { UserState } from './userReducer';
+import { UserState, setUser } from './userReducer.ts';
 import { useDispatch, useSelector } from "react-redux";
 
 export function useUserStore() {
@@ -14,8 +12,6 @@ export function useUserStoreActions() {
     const dispatch = useDispatch()
 
     return {
-        setUser: (user: User) => {
-            dispatch(createAction(USER_ACTIONS.SET_USER, { user }))
-        }
+        setUser: (user: User) => dispatch(setUser(user))
     }
 }
