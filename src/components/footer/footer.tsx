@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Logo from "../ui/logo.tsx";
 
 const footerNavigation = {
   products: [
@@ -36,14 +38,9 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="border-t border-gray-200 py-20">
           <div className="grid grid-cols-1 md:grid-flow-col md:auto-rows-min md:grid-cols-12 md:gap-x-8 md:gap-y-16">
-            {/* Image section */}
-            <div className="col-span-1 md:col-span-2 lg:col-start-1 lg:row-start-1">
-              <img
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-                className="h-8 w-auto"
-              />
-            </div>
+            <Link to="/" className="col-span-1 md:col-span-2 lg:col-start-1 lg:row-start-1">
+              <Logo />
+            </Link>
 
             {/* Sitemap sections */}
             <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2">
