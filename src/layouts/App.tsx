@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Outlet } from "react-router-dom"
+import { Outlet, ScrollRestoration } from "react-router-dom"
 import NotificationContainer from "../components/Notification/NotificationContainer.tsx"
 import Footer from "../components/footer/footer.tsx"
 import Header from "../components/header/header.tsx"
@@ -19,6 +19,7 @@ export default function App() {
     }, [])
 
     return <>
+        <ScrollRestoration />
         <NotificationContainer />
         <Header />
         <ProductQuickViewProvider>
