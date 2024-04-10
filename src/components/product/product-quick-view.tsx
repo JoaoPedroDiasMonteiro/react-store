@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import React, { Fragment } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCartStoreActions } from '../../store/cart/cartStore.ts'
 import { useNotificationStoreActions } from '../../store/notification/notificationStore.ts'
 import { Product } from '../../types/Product'
@@ -20,10 +21,10 @@ export default function ProductQuickView({ product, handle }: ProductQuickViewPr
     const { addNotification } = useNotificationStoreActions()
     const { open, setOpen } = handle
 
+    const navigate = useNavigate()
+
     function handleAddToCart() {
-        if (!product) {
-            return
-        }
+        if (!product) return
 
         addToCart(product)
         notifyProductAdded(product)
@@ -37,6 +38,13 @@ export default function ProductQuickView({ product, handle }: ProductQuickViewPr
             type: 'image',
             imageUrl: product.image,
         })
+    }
+
+    function handleNavigate() {
+        if (!product) return
+
+        navigate(`/product/${product.id}`)
+        setOpen(false)
     }
 
     return (
@@ -137,9 +145,9 @@ export default function ProductQuickView({ product, handle }: ProductQuickViewPr
                                                         </div>
 
                                                         <p className="absolute left-4 top-4 text-center sm:static sm:mt-6">
-                                                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                            <button type='button' onClick={handleNavigate} className="font-medium text-indigo-600 hover:text-indigo-500">
                                                                 View full details
-                                                            </a>
+                                                            </button>
                                                         </p>
                                                     </form>
                                                 </section>
