@@ -28,7 +28,7 @@ export function ProductPage() {
                 <LoadingSpinner className='absolute inset-0' />
             </div>
             )}>
-                <Await resolve={product} errorElement={<Error className='' />}>
+                <Await resolve={product} errorElement={<Error />}>
                     {(product) => (
                         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                             <ProductInformation product={product} />

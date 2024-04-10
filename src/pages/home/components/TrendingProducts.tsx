@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ProductRepository from "../../../repository/productRepository.ts";
+import React from "react";
+import ProductCard from "../../../components/product/product-card.tsx";
 import { Pagination } from "../../../types/Pagination";
 import { Product } from "../../../types/Product";
-import ProductCardSkeleton from "../../../components/product/product-card-skeleton.tsx";
-import ProductCard from "../../../components/product/product-card.tsx";
 
-export default function TrendingProducts() {
-    const [products, setProducts] = useState<Pagination<Product>>()
-    const [loading, setLoading] = useState<boolean>(true)
+interface TrendingProductsProps {
+    readonly products: Pagination<Product>
+}
 
-    useEffect(() => {
-        fetchProducts()
-    }, [])
-
-    async function fetchProducts() {
-        const options = {
-            limit: 4,
-            with: 'category',
-            randomOrder: true,
-        }
-
-        await ProductRepository.index(options)
-            .then((products) => {
-                setProducts(products)
-            }).catch(() => { })
-
-        setLoading(false)
-    }
-
-    if (!loading && !products?.data.length) {
+export default function TrendingProducts({ products }: TrendingProductsProps) {
+    if (!products?.data.length) {
         return null
     }
 
@@ -46,11 +26,7 @@ export default function TrendingProducts() {
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-                    {loading && [...Array(4)].map((value, key) => (
-                        <ProductCardSkeleton key={key} />
-                    ))}
-
-                    {!loading && products?.data.map((product) => (
+                    {products?.data.map((product) => (
                         <ProductCard product={product} key={product.id} />
                     ))}
                 </div>
