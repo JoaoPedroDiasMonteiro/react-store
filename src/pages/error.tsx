@@ -1,8 +1,17 @@
 import React from "react";
 
-export default function Error() {
-    return <div className="container mx-auto py-10 px-4 text-center">
-        <div className="h-full text-9xl font-bold">404</div>
-        <p className="mt-6">THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.</p>
+interface ErrorProps {
+    readonly className?: string
+    readonly errorCode?: string
+    readonly errorMessage?: string
+}
+
+export default function Error({ className, errorCode, errorMessage }: ErrorProps) {
+    const defaultErrorCode = '404'
+    const defaultErrorMessage = "THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST."
+
+    return <div className={`container mx-auto w-full py-10 px-4 text-center ${className}`}>
+        <div className="text-9xl font-bold">{errorCode ?? defaultErrorCode}</div>
+        <p className="mt-6">{errorMessage ?? defaultErrorMessage}</p>
     </div>
 }
