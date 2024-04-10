@@ -5,7 +5,7 @@ import Login from '../pages/auth/login.tsx';
 import Register from '../pages/auth/register.tsx';
 import Category from '../pages/category.tsx';
 import Error from '../pages/error.tsx';
-import Home from './../pages/home/index.tsx';
+import Home from '../pages/Home/Index.tsx';
 
 export default createBrowserRouter([
     {

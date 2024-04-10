@@ -1,6 +1,6 @@
 import React from 'react'
-import TrendingProducts from './components/trending-products.tsx'
-import CollectionHeading from './components/collection-heading.tsx'
+import TrendingProducts from './Components/TrendingProducts.tsx'
+import CollectionHeading from './Components/CollectionHeading.tsx'
 const perks = [
     {
         name: 'Free returns',
