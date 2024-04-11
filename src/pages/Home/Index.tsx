@@ -1,6 +1,6 @@
 import React from 'react'
 import { Await, defer, useLoaderData } from 'react-router-dom'
-import LoadingSpinner from '../../components/ui/LoadingSpinner.tsx'
+import LoadingSpinner from '../../components/UI/LoadingSpinner.tsx'
 import CategoryRepository from '../../repository/categoryRepository.ts'
 import ProductRepository from '../../repository/productRepository.ts'
 import CollectionHeading from './Components/CollectionHeading.tsx'

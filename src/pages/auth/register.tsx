@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "../../components/ui/button.tsx";
-import Input from "../../components/ui/input/input.tsx";
-import Logo from "../../components/ui/logo.tsx";
+import Button from "../../components/UI/button.tsx";
+import Input from "../../components/UI/input/input.tsx";
+import Logo from "../../components/UI/logo.tsx";
 import AuthHero from "./components/auth-hero.tsx";
 
 export default function Register() {

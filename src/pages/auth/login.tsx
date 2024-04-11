@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/ui/button.tsx";
-import Checkbox from "../../components/ui/input/checkbox.tsx";
-import Input from "../../components/ui/input/input.tsx";
-import Logo from "../../components/ui/logo.tsx";
+import Button from "../../components/UI/button.tsx";
+import Checkbox from "../../components/UI/input/checkbox.tsx";
+import Input from "../../components/UI/input/input.tsx";
+import Logo from "../../components/UI/logo.tsx";
 import UserRepository from "../../repository/userRepository.ts";
 import { useUserStore, useUserStoreActions } from "../../store/user/userStore.ts";
 import { ErrorData } from "../../types/Error.ts";
