@@ -11,11 +11,9 @@ export default function App() {
     const { setUser } = useUserStoreActions()
 
     useEffect(() => {
-        UserRepository.user()
-            .then((user) => {
-                setUser(user)
-            })
-            .catch(() => { })
+        UserRepository.user().then((user) => {
+            setUser(user)
+        }).catch(() => { })
     }, [])
 
     return <>
