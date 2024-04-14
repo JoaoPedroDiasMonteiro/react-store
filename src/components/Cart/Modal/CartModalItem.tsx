@@ -1,14 +1,22 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import { useCartStoreActions } from "../../../store/cart/cartStore.ts"
 import { CartItem } from "../../../types/CartItem"
 import moneyFormat from "../../../utils/moneyFormat.ts"
 
 interface CartModalItemProps {
     readonly product: CartItem
+    readonly setOpen: Function
 }
 
-export default function CartModalItem({ product }: CartModalItemProps) {
+export default function CartModalItem({ product, setOpen }: CartModalItemProps) {
+    const navigate = useNavigate()
     const { updateItemQuantity, removeFromCart } = useCartStoreActions()
+
+    function navigateToProduct() {
+        setOpen(false)
+        navigate(`product/${product.id}`)
+    }
 
     function handleRemove() {
         removeFromCart(product.id)
@@ -36,7 +44,7 @@ export default function CartModalItem({ product }: CartModalItemProps) {
                 <div>
                     <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                            <a href="#">{product.name}</a>
+                            <button onClick={navigateToProduct}>{product.name}</button>
                             <p className="mt-1 text-sm text-gray-500">{product.category?.name}</p>
                         </h3>
                         <div className='text-right'>

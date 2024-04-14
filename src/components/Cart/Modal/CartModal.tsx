@@ -52,7 +52,7 @@ export default function CartModal({ handle }: CartModalProps) {
                                                 <div className="flow-root">
                                                     <ul className="-my-6 divide-y divide-gray-200">
                                                         {products.map((product) => (
-                                                            <CartModalItem product={product} key={product.id} />
+                                                            <CartModalItem setOpen={setOpen} product={product} key={product.id} />
                                                         ))}
                                                     </ul>
                                                 </div>
