@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { ProductQuickViewContext } from "../../context/product-quick-view-context.tsx";
 import { Product } from "../../types/Product";
 
@@ -6,7 +6,7 @@ interface ProductCardProps {
     readonly product: Product
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default memo(function ProductCard({ product }: ProductCardProps) {
     const { setProduct } = useContext(ProductQuickViewContext)
 
     function handleClick() {
@@ -36,4 +36,4 @@ export default function ProductCard({ product }: ProductCardProps) {
             </p>
         </div>
     )
-};
+});
