@@ -25,7 +25,7 @@ export default function Login() {
     const [loading, setLoading] = useState<boolean>(false)
     const [errors, setErrors] = useState<ErrorData>({})
 
-    async function login(event: React.SyntheticEvent) {
+    async function login(event: React.FormEvent) {
         event.preventDefault()
 
         setLoading(true)
