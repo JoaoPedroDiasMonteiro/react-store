@@ -1,5 +1,6 @@
 import React from 'react'
 import { Await, defer, useLoaderData } from 'react-router-dom'
+import Empty from '../../components/UI/Empty'
 import LoadingSpinner from '../../components/UI/LoadingSpinner'
 import CategoryRepository from '../../repository/categoryRepository'
 import ProductRepository from '../../repository/productRepository'
@@ -35,11 +36,11 @@ export async function homeLoader() {
             limit: 4,
             with: 'category',
             randomOrder: true,
-        }).catch(() => null)
+        })
 
         const categories = CategoryRepository.index({
             limit: 3
-        }).catch(() => null)
+        })
 
         return defer({
             trendingProducts,
@@ -106,14 +107,14 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <Await resolve={categories}>
+                        <Await resolve={categories} errorElement={<Empty />}>
                             {categories => (
                                 <CollectionHeading categories={categories} />
                             )}
                         </Await>
                     </div>
 
-                    <Await resolve={trendingProducts}>
+                    <Await resolve={trendingProducts} errorElement={<Empty />}>
                         {products => (
                             <TrendingProducts products={products} />
                         )}
