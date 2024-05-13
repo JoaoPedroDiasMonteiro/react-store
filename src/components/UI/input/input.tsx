@@ -12,6 +12,7 @@ export default function Input(props: InputProps) {
 
     const inputValue = useMemo(() => {
         if (typeof model[0] === 'object' && model[2]) {
+            // @ts-ignore
             return model[0][model[2]]
         }
 

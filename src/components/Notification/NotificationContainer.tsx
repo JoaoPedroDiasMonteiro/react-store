@@ -1,6 +1,6 @@
 import React from 'react'
-import { useNotificationStore } from '../../store/notification/notificationStore.ts'
-import NotificationItem from './NotificationItem/NotificationItem.tsx'
+import { useNotificationStore } from '../../store/notification/notificationStore'
+import NotificationItem from './NotificationItem/NotificationItem'
 
 export default function NotificationContainer() {
     const { notifications } = useNotificationStore()

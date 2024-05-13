@@ -2,9 +2,9 @@ import { Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import React, { Fragment, useEffect, useState } from 'react'
 import { Notification } from '../../../types/Notification'
-import NotificationItemActions from './NotificationItemActions.tsx'
-import NotificationItemIcon from './NotificationItemIcon.tsx'
-import { useNotificationStoreActions } from '../../../store/notification/notificationStore.ts'
+import NotificationItemActions from './NotificationItemActions'
+import NotificationItemIcon from './NotificationItemIcon'
+import { useNotificationStoreActions } from '../../../store/notification/notificationStore'
 
 interface NotificationItemProps {
     readonly notification: Notification

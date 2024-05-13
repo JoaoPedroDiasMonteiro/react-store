@@ -1,10 +1,10 @@
 import React from 'react'
 import { Await, defer, useLoaderData } from 'react-router-dom'
-import LoadingSpinner from '../../components/UI/LoadingSpinner.tsx'
-import CategoryRepository from '../../repository/categoryRepository.ts'
-import ProductRepository from '../../repository/productRepository.ts'
-import CollectionHeading from './Components/CollectionHeading.tsx'
-import TrendingProducts from './Components/TrendingProducts.tsx'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import CategoryRepository from '../../repository/categoryRepository'
+import ProductRepository from '../../repository/productRepository'
+import CollectionHeading from './Components/CollectionHeading'
+import TrendingProducts from './Components/TrendingProducts'
 const perks = [
     {
         name: 'Free returns',
@@ -35,10 +35,11 @@ export async function homeLoader() {
             limit: 4,
             with: 'category',
             randomOrder: true,
-        })
+        }).catch(() => null)
+
         const categories = CategoryRepository.index({
             limit: 3
-        })
+        }).catch(() => null)
 
         return defer({
             trendingProducts,

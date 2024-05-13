@@ -10,6 +10,7 @@ export default function Checkbox(props: CheckboxProps) {
 
     const checked = useMemo(() => {
         if (typeof model[0] === 'object' && model[2]) {
+            // @ts-ignore
             return model[0][model[2]]
         }
 
@@ -18,6 +19,7 @@ export default function Checkbox(props: CheckboxProps) {
 
     function handleOnChange() {
         if (model[2] && typeof model[0] === 'object') {
+            // @ts-ignore
             const value = model[0][model[2]]
 
             model[1]({ ...model[0], [model[2]]: !value })

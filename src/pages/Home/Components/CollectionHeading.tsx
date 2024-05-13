@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryHeading from "../../../components/category/category-heading.tsx";
+import CategoryHeading from "../../../components/category/category-heading";
 import { Category } from "../../../types/Category";
 import { Pagination } from "../../../types/Pagination";
 
@@ -8,6 +8,10 @@ interface CollectionHeadingProps {
 }
 
 export default function CollectionHeading({ categories }: CollectionHeadingProps) {
+    if (!categories?.data.length) {
+        return null
+    }
+
     return (
         <section aria-labelledby="collection-heading" className="relative -mt-96 sm:mt-0">
             <h2 id="collection-heading" className="sr-only">

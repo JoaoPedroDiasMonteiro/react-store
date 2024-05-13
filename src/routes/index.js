@@ -1,11 +1,11 @@
 import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
-import App from '../layouts/App.tsx';
-import Login from '../pages/auth/login.tsx';
-import Register from '../pages/auth/register.tsx';
-import Category from '../pages/category.tsx';
-import Error from '../pages/error.tsx';
-import Home, { homeLoader } from '../pages/Home/Index.tsx';
+import App from '../layouts/App';
+import Login from '../pages/auth/login';
+import Register from '../pages/auth/register';
+import Category from '../pages/category';
+import Error from '../pages/error';
+import Home, { homeLoader } from '../pages/Home/Index';
 
 export default createBrowserRouter([
     {
@@ -24,7 +24,7 @@ export default createBrowserRouter([
             {
                 path: '/product/:product',
                 async lazy() {
-                    const { ProductPage, productLoader } = await import('../pages/Product/Index.tsx')
+                    const { ProductPage, productLoader } = await import('../pages/Product/Index')
 
                     return {
                         loader: productLoader,

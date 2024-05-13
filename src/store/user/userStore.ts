@@ -1,5 +1,5 @@
 import { User } from '../../types/User';
-import { UserState, setUser } from './userReducer.ts';
+import { UserState, setUser } from './userReducer';
 import { useDispatch, useSelector } from "react-redux";
 
 export function useUserStore() {

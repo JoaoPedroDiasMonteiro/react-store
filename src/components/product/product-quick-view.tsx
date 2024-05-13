@@ -3,10 +3,10 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import React, { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCartStoreActions } from '../../store/cart/cartStore.ts'
-import { useNotificationStoreActions } from '../../store/notification/notificationStore.ts'
+import { useCartStoreActions } from '../../store/cart/cartStore'
+import { useNotificationStoreActions } from '../../store/notification/notificationStore'
 import { Product } from '../../types/Product'
-import classNames from '../../utils/classNames.ts'
+import classNames from '../../utils/classNames'
 
 interface ProductQuickViewProps {
     readonly product: null | Product

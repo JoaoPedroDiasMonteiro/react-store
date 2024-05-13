@@ -1,8 +1,8 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useCartStoreActions } from "../../../store/cart/cartStore.ts"
+import { useCartStoreActions } from "../../../store/cart/cartStore"
 import { CartItem } from "../../../types/CartItem"
-import moneyFormat from "../../../utils/moneyFormat.ts"
+import moneyFormat from "../../../utils/moneyFormat"
 
 interface CartModalItemProps {
     readonly product: CartItem

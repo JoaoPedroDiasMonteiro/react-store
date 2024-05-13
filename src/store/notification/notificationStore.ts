@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Notification as BaseNotification } from "../../types/Notification";
-import { NotificationState, addNotification, removeNotification } from './notificationReducer.ts';
+import { NotificationState, addNotification, removeNotification } from './notificationReducer';
 
 interface Notification extends Omit<BaseNotification, 'id' | 'duration'> {
     duration?: number

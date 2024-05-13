@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useUserStore } from "../../store/user/userStore.ts";
+import { useUserStore } from "../../store/user/userStore"
 
 export default function LoginNavigation() {
     const { user } = useUserStore()

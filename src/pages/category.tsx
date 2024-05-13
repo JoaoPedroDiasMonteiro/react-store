@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Popover, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import classNames from '../utils/classNames';
 
 const sortOptions = [
   { name: 'Most Popular', href: '#' },
@@ -121,10 +122,6 @@ const products2 = [
   // More products...
 ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function Category() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
@@ -194,7 +191,7 @@ export default function Category() {
                                     name={`${section.id}[]`}
                                     defaultValue={option.value}
                                     type="checkbox"
-                                    defaultChecked={option.checked}
+                                    // defaultChecked={option.checked}
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                   />
                                   <label
@@ -319,7 +316,7 @@ export default function Category() {
                                 id={`filter-${section.id}-${optionIdx}`}
                                 name={`${section.id}[]`}
                                 defaultValue={option.value}
-                                defaultChecked={option.checked}
+                                // defaultChecked={option.checked}
                                 type="checkbox"
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                               />

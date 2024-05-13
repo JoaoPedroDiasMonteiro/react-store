@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import routes from './routes/index.js';
-import { store } from './store/index.ts';
+import { store } from './store/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

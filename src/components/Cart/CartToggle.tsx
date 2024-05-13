@@ -1,6 +1,6 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import { useCartStore } from "../../store/cart/cartStore.ts";
+import { useCartStore } from "../../store/cart/cartStore"
 
 export default function CartToggle(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
     const { quantityItems } = useCartStore()

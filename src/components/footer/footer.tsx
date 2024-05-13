@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../UI/logo.tsx";
+import Logo from "../UI/logo";
 
 const footerNavigation = {
   products: [

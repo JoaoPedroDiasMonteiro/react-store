@@ -25,6 +25,7 @@ const api = {
 }
 
 function request(method: 'get' | 'post' | 'patch' | 'put' | 'delete', ...params: any) {
+    // @ts-ignore
     const response = axiosInstance[method](...params)
 
     response
@@ -42,6 +43,8 @@ function onError(error: AxiosError) {
 
 function addErrors(error: AxiosError) {
     const url = error.config?.url
+    // TODO:
+    // @ts-ignore
     const errors = error.response?.data?.errors
 
     if (url && errors) {

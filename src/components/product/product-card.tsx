@@ -1,5 +1,5 @@
 import React, { memo, useContext } from "react";
-import { ProductQuickViewContext } from "../../context/product-quick-view-context.tsx";
+import { ProductQuickViewContext } from "../../context/product-quick-view-context";
 import { Product } from "../../types/Product";
 
 interface ProductCardProps {

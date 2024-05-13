@@ -1,11 +1,11 @@
 import { CurrencyDollarIcon, GlobeAmericasIcon, StarIcon } from '@heroicons/react/20/solid';
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import React from "react";
-import { useCartStoreActions } from '../../../store/cart/cartStore.ts';
-import { useNotificationStoreActions } from '../../../store/notification/notificationStore.ts';
+import { useCartStoreActions } from '../../../store/cart/cartStore';
+import { useNotificationStoreActions } from '../../../store/notification/notificationStore';
 import { Product } from "../../../types/Product";
-import classNames from "../../../utils/classNames.ts";
-import moneyFormat from "../../../utils/moneyFormat.ts";
+import classNames from "../../../utils/classNames"
+import moneyFormat from "../../../utils/moneyFormat"
 
 const highlights = [
     'Hand cut and sewn locally',

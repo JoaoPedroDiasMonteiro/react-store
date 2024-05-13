@@ -1,6 +1,6 @@
-import React, { createContext, useMemo, useState } from "react";
+import { ReactNode, createContext, useMemo, useState } from "react";
+import ProductQuickView from "../components/product/product-quick-view";
 import { Product } from "../types/Product";
-import ProductQuickView from "../components/product/product-quick-view.tsx";
 
 const INITIAL_VALUE = {
     product: null as null | Product,
@@ -9,7 +9,11 @@ const INITIAL_VALUE = {
 
 export const ProductQuickViewContext = createContext(INITIAL_VALUE)
 
-export function ProductQuickViewProvider({ children }) {
+interface ProductQuickViewProviderProps {
+    children: ReactNode
+}
+
+export function ProductQuickViewProvider({ children }: ProductQuickViewProviderProps) {
     const [product, setProduct] = useState<null | Product>(null)
     const [open, setOpen] = useState(false)
 

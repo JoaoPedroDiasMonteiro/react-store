@@ -1,9 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
-import { useCartStore } from '../../../store/cart/cartStore.ts';
-import CartModalFooter from './CartModalFooter.tsx';
-import CartModalHeader from './CartModalHeader.tsx';
-import CartModalItem from './CartModalItem.tsx';
+import { useCartStore } from '../../../store/cart/cartStore';
+import CartModalFooter from './CartModalFooter';
+import CartModalHeader from './CartModalHeader';
+import CartModalItem from './CartModalItem';
 
 interface CartModalProps {
     readonly handle: {

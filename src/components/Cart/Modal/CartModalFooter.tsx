@@ -1,5 +1,5 @@
 import React from "react";
-import moneyFormat from "../../../utils/moneyFormat.ts";
+import moneyFormat from "../../../utils/moneyFormat"
 
 interface CartModalFooterProps {
     totalValue: number,

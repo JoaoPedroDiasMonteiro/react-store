@@ -1,4 +1,4 @@
-import api from '../services/api.ts';
+import api from '../services/api';
 import { IndexOptions } from './../types/IndexOptions.d';
 import { Pagination } from './../types/Pagination.d';
 import { Product } from './../types/Product.d';

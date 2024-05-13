@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../../../components/product/product-card.tsx";
+import ProductCard from "../../../components/product/product-card";
 import { Pagination } from "../../../types/Pagination";
 import { Product } from "../../../types/Product";
 

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Product } from '../../types/Product';
-import { CartState, addToCart, removeFromCart, updateQuantity } from './cartReducer.ts';
+import { CartState, addToCart, removeFromCart, updateQuantity } from './cartReducer';
 
 export function useCartStore() {
     return {

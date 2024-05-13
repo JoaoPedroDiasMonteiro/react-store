@@ -1,16 +1,14 @@
 import React from 'react'
-import { Await, defer, useLoaderData } from 'react-router-dom'
-import LoadingSpinner from '../../components/UI/LoadingSpinner.tsx'
-import ProductRepository from '../../repository/productRepository.ts'
+import { Await, LoaderFunctionArgs, defer, useLoaderData } from 'react-router-dom'
+import LoadingSpinner from '../../components/UI/LoadingSpinner'
+import ProductRepository from '../../repository/productRepository'
 import { Product } from '../../types/Product'
-import ProductInformation from './Components/ProductInformation.tsx'
-import Error from '../error.tsx';
+import Error from '../error'
+import ProductInformation from './Components/ProductInformation'
 
-export async function productLoader({ params }) {
-    const productId = params.product
-
+export async function productLoader({ params }: LoaderFunctionArgs) {
     try {
-        const product = ProductRepository.show(productId)
+        const product = ProductRepository.show(parseInt(params.product ?? ''))
 
         return defer({ product })
     } catch (error) {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "../../components/UI/button.tsx";
-import Input from "../../components/UI/input/input.tsx";
-import Logo from "../../components/UI/logo.tsx";
-import AuthHero from "./components/auth-hero.tsx";
+import Button from "../../components/UI/button";
+import Input from "../../components/UI/input/input";
+import Logo from "../../components/UI/logo";
+import AuthHero from "./components/auth-hero";
 
 export default function Register() {
     const [email, setEmail] = useState<string>('')

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/UI/button.tsx";
-import Checkbox from "../../components/UI/input/checkbox.tsx";
-import Input from "../../components/UI/input/input.tsx";
-import Logo from "../../components/UI/logo.tsx";
-import UserRepository from "../../repository/userRepository.ts";
-import { useNotificationStoreActions } from "../../store/notification/notificationStore.ts";
-import { useUserStoreActions } from "../../store/user/userStore.ts";
-import { ErrorData } from "../../types/Error.ts";
-import getError from "../../utils/getError.ts";
-import AuthHero from "./components/auth-hero.tsx";
-import AuthSocial from "./components/auth-social.tsx";
+import Button from "../../components/UI/button";
+import Checkbox from "../../components/UI/input/checkbox";
+import Input from "../../components/UI/input/input";
+import Logo from "../../components/UI/logo";
+import UserRepository from "../../repository/userRepository"
+import { useNotificationStoreActions } from "../../store/notification/notificationStore"
+import { useUserStoreActions } from "../../store/user/userStore"
+import { ErrorData } from "../../types/Error"
+import getError from "../../utils/getError"
+import AuthHero from "./components/auth-hero";
+import AuthSocial from "./components/auth-social";
 
 export default function Login() {
     const { setUser } = useUserStoreActions()
@@ -40,7 +40,7 @@ export default function Login() {
                 })
                 navigate('/')
             })
-        } catch (error) {
+        } catch (error: any) {
             setErrors(error.response?.data?.errors ?? {})
         }
 
